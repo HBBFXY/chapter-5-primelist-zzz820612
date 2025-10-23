@@ -4,26 +4,23 @@ def PrimeList(N):
     参数:    N - 正整数    
     返回:    str - 包含所有小于 N 的质数的字符串，空格分隔
     """
-    # 处理特殊情况，小于 2 的数没有质数
+    # 处理所有小于2的情况（包括负数、0、1），返回空字符串
     if N <= 2:
         return ""
     
-    # 初始化一个列表，用于标记每个数是否为质数
+    # 初始化质数标记列表（埃拉托斯特尼筛法）
     is_prime = [True] * N
-    # 0 和 1 不是质数
-    is_prime[0] = is_prime[1] = False
+    is_prime[0], is_prime[1] = False, False  # 0和1不是质数
     
-    # 从 2 开始遍历到 N 的平方根
-    for i in range(2, int(N ** 0.5) + 1):
-        if is_prime[i]:
-            # 将 i 的倍数标记为非质数
-            # 从 i*i 开始标记，因为更小的倍数已经被标记过了
-            for j in range(i * i, N, i):
-                is_prime[j] = False
+    # 标记非质数
+    for current in range(2, int(N ** 0.5) + 1):
+        if is_prime[current]:
+            # 从current的平方开始标记其倍数为非质数
+            for multiple in range(current * current, N, current):
+                is_prime[multiple] = False
     
-    # 收集所有质数，从2开始确保不包含1
-    primes = [str(i) for i in range(2, N) if is_prime[i]]
+    # 收集所有质数并转换为字符串列表
+    primes = [str(num) for num in range(2, N) if is_prime[num]]
     
-    # 将质数列表转换为以空格分隔的字符串
+    # 用空格连接所有质数字符串
     return " ".join(primes)
-    
