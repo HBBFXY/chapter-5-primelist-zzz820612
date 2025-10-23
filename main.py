@@ -25,5 +25,4 @@ def PrimeList(N):
     for num in range(2, N):  # 从 2 开始，确保不包含 1
         if is_prime[num]:
             primes.append(str(num))
-    
     return " ".join(primes)
