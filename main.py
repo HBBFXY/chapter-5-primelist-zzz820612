@@ -35,5 +35,3 @@ def PrimeList(N):
     
     # 用空格连接质数字符串列表
     return " ".join(primes)
-
-+
