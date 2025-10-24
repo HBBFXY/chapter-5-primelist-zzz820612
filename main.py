@@ -10,23 +10,28 @@ def PrimeList(N):
     返回:
         str: 包含所有小于N的质数的字符串，以空格分隔
     """
+    # 处理边界情况
     if N <= 2:
         return ""
     
     # 初始化标记数组，长度为N
     is_prime = [True] * N
-    is_prime[0] = False  # 0不是质数
-    is_prime[1] = False  # 1不是质数
+    is_prime[0] = is_prime[1] = False  # 0和1不是质数
     
-    # 埃拉托斯特尼筛法核心算法
+    # 埃拉托斯特尼筛法核心算法[1](@ref)[2](@ref)
+    # 只需检查到sqrt(N)即可[1](@ref)[4](@ref)
     for i in range(2, int(math.sqrt(N)) + 1):
         if is_prime[i]:
-            # 标记i的所有倍数为非质数
+            # 标记i的所有倍数为非质数[1](@ref)[2](@ref)
+            # 从i*i开始标记，因为更小的倍数已经被更小的质数标记过了
             for j in range(i*i, N, i):
                 is_prime[j] = False
     
     # 收集所有质数
-    primes = [str(num) for num in range(2, N) if is_prime[num]]
+    primes = []
+    for num in range(2, N):
+        if is_prime[num]:
+            primes.append(str(num))
     
     return " ".join(primes)
 
